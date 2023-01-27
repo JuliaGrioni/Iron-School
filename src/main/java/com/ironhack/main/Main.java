@@ -61,9 +61,25 @@ public class Main {
         studentList.forEach((key,value) -> {
             System.out.println(key + "=" + value + " ");
         });
+        boolean execute=true;
+        while (execute) {
+            System.out.println("type HELP to show commands!");
+            System.out.println("setup is complete, you can now use the commands");
+            String command= scanner.nextLine();
+            String [] commandArray= command.split(" ");
+            switch (commandArray[0]){
+                case "HELP":
+                    help();
+                    break;
+                case "EXIT":
+                    execute= false;
+                    break;
+                    default: System.out.println("type HELP to show commands!");
+                    System.out.println("commands not exist!");
+            }
+        }
 
-        System.out.println("setup is complete, you can now use the commands");
-        String command= scanner.nextLine();
+
 
 
         /*lookupCourse(course);
@@ -92,6 +108,18 @@ public class Main {
     }
     public static String lookupTeacher(Teacher teacher){
         return teacher.toString();
+    }
+
+    public static void help(){
+        System.out.println("ENROLL [STUDENT_ID] [COURSE_ID]\n" +
+                "ASSIGN [TEACHER_ID] [COURSE_ID]\n" +
+                "SHOW COURSES\n" +
+                "LOOKUP COURSE [COURSE_ID]\n" +
+                "SHOW STUDENTS\n" +
+                "LOOKUP STUDENT [STUDENT_ID]\n" +
+                "SHOW TEACHERS\n" +
+                "LOOKUP TEACHER [TEACHER_ID]\n" +
+                "SHOW PROFIT");
     }
 
 
