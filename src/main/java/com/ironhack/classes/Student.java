@@ -6,12 +6,13 @@ public class Student {
     private String address;
     private String email;
     private Course course;
+    private static int studentCount = 1;
 
     public Student(String name, String address, String email) {
         this.name = name;
         this.address = address;
         this.email = email;
-        studentId = String.valueOf(studentId.hashCode());
+        studentId = "C" + String.valueOf(studentCount++);
     }
 
     public String getStudentId() {

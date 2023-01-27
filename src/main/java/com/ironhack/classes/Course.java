@@ -6,11 +6,12 @@ public class Course {
     private double price;
     private double money_earned;
     private Teacher teacher;
+    private static int courseCount = 1;
 
     public Course(String name, double price) {
         this.name = name;
         this.price = price;
-        courseId = String.valueOf(courseId.hashCode());
+        courseId = "C" + String.valueOf(courseCount++);
     }
 
     public String getCourseId() {
