@@ -5,7 +5,7 @@ public class Teacher {
     private String name;
     private double salary;
 
-    public Teacher(String name, double salary) {
+    public Teacher(String name, String salary) {
         this.name = name;
         this.salary = salary;
         teacherId = String.valueOf(teacherId.hashCode());
