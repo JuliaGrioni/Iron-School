@@ -12,7 +12,7 @@ public class Student {
         this.name = name;
         this.address = address;
         this.email = email;
-        studentId = "C" + String.valueOf(studentCount++);
+        studentId = "S" + String.valueOf(studentCount++);
     }
 
     public String getStudentId() {

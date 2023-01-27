@@ -53,4 +53,15 @@ public class Course {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseId='" + courseId + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", money_earned=" + money_earned +
+                ", teacher=" + teacher +
+                '}';
+    }
 }
