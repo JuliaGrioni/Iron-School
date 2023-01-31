@@ -15,11 +15,17 @@ public class Main {
         Map<String, Teacher> teacherList= new HashMap<>();
         Map<String, Course> courseList= new HashMap<>();
         Map<String, Student> studentList= new HashMap<>();
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please introduce the name of the school!");
         String schoolName= scanner.nextLine();
         System.out.println("Please introduce the number of teachers");
-        int teacherNumber= Integer.parseInt(scanner.nextLine());
+        String string = scanner.nextLine();
+        while (!isInteger(string)){
+            System.out.println("Please introduce the number of teachers");
+            string = scanner.nextLine();
+        }
+        int teacherNumber= Integer.parseInt(string);
         for (int i= 0; i < teacherNumber; i++){
             System.out.println("Please introduce the teacher's name: ");
             String teacherName= scanner.nextLine();
@@ -45,7 +51,6 @@ public class Main {
         courseList.forEach((key,value) -> {
             System.out.println(key + "=" + value + " ");
         });
-
         System.out.println("Please introduce the number of the students");
         int studentNumber= Integer.parseInt(scanner.nextLine());
         for (int i= 0; i < studentNumber; i++){
@@ -61,10 +66,16 @@ public class Main {
         studentList.forEach((key,value) -> {
             System.out.println(key + "=" + value + " ");
         });
+
+
+
+
+
+
         boolean execute=true;
+        System.out.println("type HELP to show commands!");
+        System.out.println("setup is complete, you can now use the commands");
         while (execute) {
-            System.out.println("type HELP to show commands!");
-            System.out.println("setup is complete, you can now use the commands");
             String command= scanner.nextLine();
             String [] commandArray= command.split(" ");
             switch (commandArray[0]){
@@ -74,9 +85,49 @@ public class Main {
                 case "EXIT":
                     execute= false;
                     break;
+                case "SHOW":
+                    if(commandArray[1].equals("COURSES")){
+                        courseList.forEach((key,value) -> {
+                            System.out.println(value);
+                        });
+                    } else if (commandArray[1].equals("TEACHERS")){
+                        teacherList.forEach((key,value) -> {
+                            System.out.println(value);
+                        });
+                    } else if (commandArray[1].equals("STUDENTS")){
+                        studentList.forEach((key,value) -> {
+                            System.out.println(value);
+                        });
+                    } else if (commandArray[1].equals("PROFIT")){
+                        double profits = showProfit((HashMap<String, Teacher>) teacherList, (HashMap<String, Course>) courseList);
+                        System.out.println(profits);
+                    } else {
+                        System.out.println("type HELP to show commands!");
+                        System.out.println("commands not exist!");
+                    }
+                    break;
+                case "LOOKUP":
+                    if(commandArray[1].equals("COURSE")){
+                        System.out.println(courseList.get(commandArray[2]));
+                    } else if (commandArray[1].equals("TEACHER")){
+                        System.out.println(teacherList.get(commandArray[2]));
+                    } else if (commandArray[1].equals("STUDENT")){
+                        System.out.println(studentList.get(commandArray[2]));
+                    } else {
+                        System.out.println("type HELP to show commands!");
+                        System.out.println("commands not exist!");
+                    }
+                    break;
+                case "ASSIGN":
+                        assignTeacher(teacherList.get(commandArray[1]), courseList.get(commandArray[2]));
+                    break;
+                case "ENROLL":
+                        enrollStudent(studentList.get(commandArray[1]), courseList.get(commandArray[2]));
+                    break;
                     default: System.out.println("type HELP to show commands!");
                     System.out.println("commands not exist!");
             }
+            scanner.close();
         }
 
 
@@ -93,6 +144,14 @@ public class Main {
         System.out.println(course.getMoney_earned());*/
 
     }
+    public static boolean isInteger(String numero){
+        try{
+            Integer.parseInt(numero);
+            return true;
+        }catch(NumberFormatException e){
+            return false;
+        }
+    }
     public static void enrollStudent(Student student, Course course){
         student.setCourse(course);
         course.setMoney_earned(course.getMoney_earned()+course.getPrice());
@@ -100,14 +159,17 @@ public class Main {
     public static void assignTeacher(Teacher teacher, Course course){
         course.setTeacher(teacher);
     }
-    public static String lookupCourse(Course course){
-        return course.toString();
-    }
-    public static String lookupStudent(Student student){
-        return student.toString();
-    }
-    public static String lookupTeacher(Teacher teacher){
-        return teacher.toString();
+
+    public static double showProfit(HashMap<String, Teacher> teachers, HashMap<String, Course> courses){
+        double profit = 0;
+        double teachersSalaries = 0;
+        for(Map.Entry<String,Teacher> entry: teachers.entrySet()){
+            teachersSalaries = teachersSalaries + entry.getValue().getSalary();
+        }
+        for(Map.Entry<String,Course> entry: courses.entrySet()){
+            profit = profit + entry.getValue().getMoney_earned();
+        }
+        return profit-teachersSalaries;
     }
 
     public static void help(){
@@ -119,8 +181,8 @@ public class Main {
                 "LOOKUP STUDENT [STUDENT_ID]\n" +
                 "SHOW TEACHERS\n" +
                 "LOOKUP TEACHER [TEACHER_ID]\n" +
-                "SHOW PROFIT");
+                "SHOW PROFIT\n" +
+                "EXIT");
     }
-
 
 }
