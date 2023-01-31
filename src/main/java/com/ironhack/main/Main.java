@@ -22,6 +22,7 @@ public class Main {
         System.out.println("Please introduce the number of teachers");
         String string = scanner.nextLine();
         while (!isInteger(string)){
+            System.out.println("Number of teachers must be a number");
             System.out.println("Please introduce the number of teachers");
             string = scanner.nextLine();
         }
@@ -30,7 +31,13 @@ public class Main {
             System.out.println("Please introduce the teacher's name: ");
             String teacherName= scanner.nextLine();
             System.out.println("Please introduce the teacher's salary: ");
-            double teacherSalary= Double.parseDouble(scanner.nextLine());
+            String salary = scanner.nextLine();
+            while (!isDouble(salary) && !isInteger(salary)){
+                System.out.println("Salary must be a number");
+                System.out.println("Please introduce the teacher's salary: ");
+                salary = scanner.nextLine();
+            }
+            double teacherSalary= Double.parseDouble(salary);
             Teacher teacher=new Teacher(teacherName, teacherSalary);
             teacherList.put(teacher.getTeacherId(),teacher);
         }
@@ -39,20 +46,38 @@ public class Main {
         });
 
         System.out.println("Please introduce the number of course");
-        int courseNumber= Integer.parseInt(scanner.nextLine());
+        String numberOfcourses = scanner.nextLine();
+        while (!isInteger(numberOfcourses)){
+            System.out.println("Number of courses must be a number");
+            System.out.println("Please introduce the number of courses");
+            numberOfcourses = scanner.nextLine();
+        }
+        int courseNumber= Integer.parseInt(numberOfcourses);
         for (int i= 0; i < courseNumber; i++){
             System.out.println("Please introduce the course name: ");
             String courseName= scanner.nextLine();
             System.out.println("Please introduce the course price: ");
-            double coursePrice= Double.parseDouble(scanner.nextLine());
+            String price = scanner.nextLine();
+            while (!isDouble(price) && !isInteger(price)){
+                System.out.println("Price must be a number");
+                System.out.println("Please introduce the course price:");
+                price = scanner.nextLine();
+            }
+            double coursePrice= Double.parseDouble(price);
             Course course=new Course(courseName, coursePrice);
             courseList.put(course.getCourseId(),course);
         }
         courseList.forEach((key,value) -> {
             System.out.println(key + "=" + value + " ");
         });
-        System.out.println("Please introduce the number of the students");
-        int studentNumber= Integer.parseInt(scanner.nextLine());
+        System.out.println("Please introduce the number of the students:");
+        String students = scanner.nextLine();
+        while (!isInteger(students)){
+            System.out.println("Number of students must be a number");
+            System.out.println("Please introduce the number of students:");
+            students = scanner.nextLine();
+        }
+        int studentNumber= Integer.parseInt(students);
         for (int i= 0; i < studentNumber; i++){
             System.out.println("Please introduce the student name: ");
             String studentName= scanner.nextLine();
@@ -147,6 +172,14 @@ public class Main {
     public static boolean isInteger(String numero){
         try{
             Integer.parseInt(numero);
+            return true;
+        }catch(NumberFormatException e){
+            return false;
+        }
+    }
+    public static boolean isDouble(String numero){
+        try{
+            Double.parseDouble(numero);
             return true;
         }catch(NumberFormatException e){
             return false;
