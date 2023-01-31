@@ -145,16 +145,17 @@ public class Main {
                     break;
                 case "ASSIGN":
                         assignTeacher(teacherList.get(commandArray[1]), courseList.get(commandArray[2]));
+                        System.out.println("teacher "+commandArray[1]+" assigned to course "+commandArray[2]);
                     break;
                 case "ENROLL":
                         enrollStudent(studentList.get(commandArray[1]), courseList.get(commandArray[2]));
+                        System.out.println("student "+commandArray[1]+" enrolled to course "+commandArray[2]);
                     break;
                     default: System.out.println("type HELP to show commands!");
                     System.out.println("commands not exist!");
             }
-            scanner.close();
         }
-
+        scanner.close();
 
 
 
